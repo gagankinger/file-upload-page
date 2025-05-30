@@ -1,24 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Page</title>
+
+    <!-- External Google Font for better typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #2980b9, #6dd5fa); /* Elegant Blue Gradient */
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-align: center;
+        }
+
+        /* Animation for the background gradient */
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Main container styling */
+        .container {
+            background: rgba(0, 0, 0, 0.7); /* Slight transparency for a modern feel */
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
+        }
+
+        h2 {
+            font-size: 30px;
+            margin-bottom: 30px;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        /* File input styles */
+        input[type="file"] {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            border: none;
+            width: 100%;
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        input[type="file"]:hover {
+            background-color: #f1f9ff;
+            transform: scale(1.02); /* Subtle hover effect */
+        }
+
+        /* Submit button styles */
+        button {
+            background-color: #2980b9; /* Primary Blue */
+            color: #fff;
+            font-size: 18px;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-weight: 500;
+        }
+
+        button:hover {
+            background-color: #1c6b8f; /* Darker shade on hover */
+            transform: scale(1.05);
+        }
+
+        /* Status message */
+        .message {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #fff;
+            font-weight: 400;
+        }
+
+        .success {
+            color: #2ecc71; /* Green for success */
+        }
+
+        .error {
+            color: #e74c3c; /* Red for error */
+        }
+    </style>
 </head>
+
 <body>
-    <h2>Upload Your File</h2>
-    <input type="file" id="fileUpload" accept="image/*" />
-    <button onclick="submitFile()">Submit</button>
+
+    <div class="container">
+        <h2>Upload Your File</h2>
+
+        <!-- File Upload Input -->
+        <input type="file" id="fileUpload" accept="image/*" />
+
+        <!-- Submit Button -->
+        <button onclick="submitFile()">Submit</button>
+
+        <!-- Status Message -->
+        <div id="statusMessage" class="message"></div>
+    </div>
 
     <script>
         function submitFile() {
             const fileInput = document.getElementById('fileUpload');
+            const statusMessage = document.getElementById('statusMessage');
             const file = fileInput.files[0];
+
             if (file) {
-                // Handle the file upload here
+                // Show success message
+                statusMessage.textContent = "File uploaded successfully!";
+                statusMessage.classList.add('success');
+                statusMessage.classList.remove('error');
                 console.log("File uploaded:", file);
+            } else {
+                // Show error message if no file is selected
+                statusMessage.textContent = "Please select a file to upload.";
+                statusMessage.classList.add('error');
+                statusMessage.classList.remove('success');
             }
         }
     </script>
+
 </body>
+
 </html>
