@@ -21,7 +21,7 @@
             font-family: 'Roboto', sans-serif;
             background: linear-gradient(135deg, #2980b9, #6dd5fa); /* Elegant Blue Gradient */
             background-size: 200% 200%;
-            animation: gradientShift 8s ease infinite;
+            animation: gradientShift 8s ease infinite; /* Background animation */
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -47,53 +47,53 @@
 
         /* Main container styling */
         .container {
-            background: rgba(0, 0, 0, 0.7); /* Slight transparency for a modern feel */
-            border-radius: 15px;
-            padding: 40px;
-            max-width: 450px;
+            background: rgba(0, 0, 0, 0.6); /* Slight transparency */
+            border-radius: 12px; /* Smaller border radius */
+            padding: 28px; /* Reduced padding */
+            max-width: 315px; /* Reduced container width */
             width: 100%;
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease;
         }
 
         .container:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px); /* Slight hover effect */
         }
 
         h2 {
-            font-size: 30px;
-            margin-bottom: 30px;
+            font-size: 21px; /* Reduced font size */
+            margin-bottom: 16px; /* Reduced margin */
             color: #fff;
-            font-weight: 700;
+            font-weight: 600;
         }
 
         /* File input styles */
         input[type="file"] {
             background-color: #fff;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 12px; /* Reduced padding */
+            border-radius: 7px; /* Smaller border radius */
             border: none;
             width: 100%;
             color: #333;
-            font-size: 16px;
-            margin-bottom: 30px;
+            font-size: 14px; /* Smaller font size */
+            margin-bottom: 16px; /* Reduced margin */
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         input[type="file"]:hover {
             background-color: #f1f9ff;
-            transform: scale(1.02); /* Subtle hover effect */
+            transform: scale(1.02); /* Slight hover effect */
         }
 
         /* Submit button styles */
         button {
             background-color: #2980b9; /* Primary Blue */
             color: #fff;
-            font-size: 18px;
-            padding: 14px 30px;
+            font-size: 16px; /* Smaller font size */
+            padding: 12px 24px; /* Smaller padding */
             border: none;
-            border-radius: 8px;
+            border-radius: 7px; /* Smaller border radius */
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.3s ease;
             font-weight: 500;
@@ -101,13 +101,13 @@
 
         button:hover {
             background-color: #1c6b8f; /* Darker shade on hover */
-            transform: scale(1.05);
+            transform: scale(1.05); /* Subtle hover effect */
         }
 
         /* Status message */
         .message {
-            margin-top: 20px;
-            font-size: 16px;
+            margin-top: 16px;
+            font-size: 14px; /* Smaller font size */
             color: #fff;
             font-weight: 400;
         }
