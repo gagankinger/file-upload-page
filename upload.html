@@ -2,26 +2,19 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Upload Page</title>
-
-    <!-- External Google Font for better typography -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
-        /* Basic Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #2980b9, #6dd5fa); /* Elegant Blue Gradient */
+            background: linear-gradient(135deg, #2980b9, #6dd5fa);
             background-size: 200% 200%;
-            animation: gradientShift 8s ease infinite; /* Background animation */
+            animation: gradientShift 8s ease infinite;
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -30,134 +23,151 @@
             text-align: center;
         }
 
-        /* Animation for the background gradient */
         @keyframes gradientShift {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        /* Main container styling */
         .container {
-            background: rgba(0, 0, 0, 0.6); /* Slight transparency */
-            border-radius: 12px; /* Smaller border radius */
-            padding: 28px; /* Reduced padding */
-            max-width: 315px; /* Reduced container width */
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 12px;
+            padding: 28px;
+            max-width: 350px;
             width: 100%;
             box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease;
         }
 
-        .container:hover {
-            transform: translateY(-8px); /* Slight hover effect */
-        }
+        .container:hover { transform: translateY(-8px); }
 
         h2 {
-            font-size: 21px; /* Reduced font size */
-            margin-bottom: 16px; /* Reduced margin */
-            color: #fff;
+            font-size: 21px;
+            margin-bottom: 16px;
             font-weight: 600;
         }
 
-        /* File input styles */
-        input[type="file"] {
+        .file-input {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .file-input input[type="file"] {
             background-color: #fff;
-            padding: 12px; /* Reduced padding */
-            border-radius: 7px; /* Smaller border radius */
+            padding: 10px;
+            border-radius: 7px;
             border: none;
-            width: 100%;
+            flex: 1;
+			width: 90%;
+			min-width: 255px;
             color: #333;
-            font-size: 14px; /* Smaller font size */
-            margin-bottom: 16px; /* Reduced margin */
+            font-size: 14px;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
-        input[type="file"]:hover {
+        .file-input input[type="file"]:hover {
             background-color: #f1f9ff;
-            transform: scale(1.02); /* Slight hover effect */
+            transform: scale(1.02);
         }
 
-        /* Submit button styles */
-        button {
-            background-color: #2980b9; /* Primary Blue */
-            color: #fff;
-            font-size: 16px; /* Smaller font size */
-            padding: 12px 24px; /* Smaller padding */
+        .remove-btn {
+            background: transparent;
             border: none;
-            border-radius: 7px; /* Smaller border radius */
+            color: #e74c3c;
+            font-size: 18px;
             cursor: pointer;
+            margin-left: 8px;
+        }
+
+        button {
+            background-color: #2980b9;
+            color: #fff;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            margin: 6px 0;
             transition: background-color 0.3s ease, transform 0.3s ease;
             font-weight: 500;
         }
 
         button:hover {
-            background-color: #1c6b8f; /* Darker shade on hover */
-            transform: scale(1.05); /* Subtle hover effect */
+            background-color: #1c6b8f;
+            transform: scale(1.05);
         }
 
-        /* Status message */
         .message {
             margin-top: 16px;
-            font-size: 14px; /* Smaller font size */
-            color: #fff;
+            font-size: 14px;
             font-weight: 400;
         }
 
-        .success {
-            color: #2ecc71; /* Green for success */
-        }
-
-        .error {
-            color: #e74c3c; /* Red for error */
-        }
+        .success { color: #2ecc71; }
+        .error { color: #e74c3c; }
     </style>
 </head>
 
 <body>
-
-    <div class="container">
-        <h2>Upload Your File</h2>
-
-        <!-- File Upload Input -->
-        <input type="file" id="fileUpload" accept="image/*" />
-
-        <!-- Submit Button -->
-        <button onclick="submitFile()">Submit</button>
-
-        <!-- Status Message -->
-        <div id="statusMessage" class="message"></div>
+<div class="container">
+    <h2>Upload Your Files</h2>
+    <div id="fileInputs">
+        <!-- Initial input -->
     </div>
+    <button onclick="addFileInput()">+ Add Another File</button>
+    <button onclick="submitFiles()">Submit</button>
+    <div id="statusMessage" class="message"></div>
+</div>
 
-    <script>
-        function submitFile() {
-            const fileInput = document.getElementById('fileUpload');
-            const statusMessage = document.getElementById('statusMessage');
-            const file = fileInput.files[0];
+<script>
+    let fileCount = 0;
+    const maxFiles = 5;
 
-            if (file) {
-                // Show success message
-                statusMessage.textContent = "File uploaded successfully!";
-                statusMessage.classList.add('success');
-                statusMessage.classList.remove('error');
-                console.log("File uploaded:", file);
-            } else {
-                // Show error message if no file is selected
-                statusMessage.textContent = "Please select a file to upload.";
-                statusMessage.classList.add('error');
-                statusMessage.classList.remove('success');
+    function addFileInput() {
+        if (fileCount >= maxFiles) return;
+
+        const fileInputs = document.getElementById("fileInputs");
+        const div = document.createElement("div");
+        div.className = "file-input";
+        div.innerHTML = `
+            <input type="file" accept="image/*" />
+            <button class="remove-btn" onclick="removeFileInput(this)">&#10006;</button>
+        `;
+        fileInputs.appendChild(div);
+        fileCount++;
+    }
+
+    function removeFileInput(button) {
+        const parent = button.parentElement;
+        parent.remove();
+        fileCount--;
+    }
+
+    function submitFiles() {
+        const statusMessage = document.getElementById("statusMessage");
+        const inputs = document.querySelectorAll('#fileInputs input[type="file"]');
+        const selectedFiles = [];
+
+        inputs.forEach(input => {
+            if (input.files.length > 0) {
+                selectedFiles.push(input.files[0].name);
             }
+        });
+
+        if (selectedFiles.length > 0) {
+            statusMessage.textContent = `Uploaded ${selectedFiles.length} file(s): ${selectedFiles.join(", ")}`;
+            statusMessage.className = "message success";
+            console.log("Files uploaded:", selectedFiles);
+        } else {
+            statusMessage.textContent = "Please select at least one file to upload.";
+            statusMessage.className = "message error";
         }
-    </script>
+    }
 
+    // Add one file input on load
+    window.onload = addFileInput;
+</script>
 </body>
-
 </html>
