@@ -1,173 +1,636 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Upload Page</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Upload Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #2980b9, #6dd5fa);
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+  height: 100vh;
+  color: #fff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  transition: all 0.6s ease;
+}
 
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #2980b9, #6dd5fa);
-            background-size: 200% 200%;
-            animation: gradientShift 8s ease infinite;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            text-align: center;
-        }
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-        .container {
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 12px;
-            padding: 28px;
-            max-width: 350px;
-            width: 100%;
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-        }
+    .left, .right {
+      width: 50%;
+      padding: 40px;
+      overflow-y: auto;
+    }
 
-        .container:hover { transform: translateY(-8px); }
+    .left {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-        h2 {
-            font-size: 21px;
-            margin-bottom: 16px;
-            font-weight: 600;
-        }
+    .container {
+      background: rgba(0, 0, 0, 0.65);
+      border-radius: 20px;
+      padding: 32px 40px;
+      width: 100%;
+      max-width: 450px;
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.4);
+    }
 
-        .file-input {
-            display: flex;
-            align-items: center;
-            margin-bottom: 12px;
-        }
+    .container h2 {
+      font-size: 24px;
+      margin-bottom: 24px;
+      font-weight: 700;
+	  text-align: center;       /* Center horizontally */
+  width: 100%; 
+    }
 
-        .file-input input[type="file"] {
-            background-color: #fff;
-            padding: 10px;
-            border-radius: 7px;
-            border: none;
-            flex: 1;
-			width: 90%;
-			min-width: 255px;
-            color: #333;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
+    .file-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 18px;
+  margin-left: 10%;
+}
 
-        .file-input input[type="file"]:hover {
-            background-color: #f1f9ff;
-            transform: scale(1.02);
-        }
+    .file-input input[type="file"] {
+      background-color: #fff;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      width: 297px;
+      color: #333;
+      font-size: 15px;
+      cursor: pointer;
+    }
 
-        .remove-btn {
-            background: transparent;
-            border: none;
-            color: #e74c3c;
-            font-size: 18px;
-            cursor: pointer;
-            margin-left: 8px;
-        }
+    .file-input input[type="file"]:hover {
+      background-color: #f1f9ff;
+      transform: scale(1.02);
+    }
 
-        button {
-            background-color: #2980b9;
-            color: #fff;
-            font-size: 16px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 7px;
-            cursor: pointer;
-            margin: 6px 0;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            font-weight: 500;
-        }
+    .remove-btn {
+      background: transparent;
+      border: none;
+      color: #ff6b6b;
+      font-size: 20px;
+      cursor: pointer;
+      margin-left: -15px;
+	  flex-shrink: 0;
+    }
+	
+	.remove-btn:hover {
+  background: transparent; /* prevents blue background */
+  transform: scale(1.3);   /* makes the ❌ slightly larger */
+  color: #ff4c4c;          /* optional: slightly brighter red on hover */
+}
 
-        button:hover {
-            background-color: #1c6b8f;
-            transform: scale(1.05);
-        }
+    button {
+      background-color: #2471a3;
+      color: #fff;
+      font-size: 15px;
+      padding: 12px 26px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 8px 5px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      font-weight: 500;
+    }
 
-        .message {
-            margin-top: 16px;
-            font-size: 14px;
-            font-weight: 400;
-        }
+    button:hover {
+      background-color: #1a5276;
+      transform: scale(1.05);
+    }
 
-        .success { color: #2ecc71; }
-        .error { color: #e74c3c; }
-    </style>
+    .message {
+      margin-top: 18px;
+      font-size: 15px;
+      font-weight: 400;
+    }
+
+    .success { color: #2ecc71; }
+    .error { color: #e74c3c; }
+
+    .right {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+
+    .right h2 {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  padding: 5px 9px;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  margin-left: 40px;
+  margin-right: auto;
+  color: #fff;
+}
+
+	.preview-number {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 10px;
+  text-align: left;
+  width: 95%;
+}
+
+    .preview-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 0 10px;
+      overflow-y: auto;
+    }
+
+.preview-item {
+  background: transparent;
+  border-radius: 16px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.preview-item img,
+.preview-item embed {
+  width: 95%;
+  max-height: 750px;
+  border-radius: 16px;
+  object-fit: contain;
+  border: 3px solid rgba(255, 255, 255, 0.3); /* subtle white border */
+  background-color: #fff;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+body.single-column .left {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  transition: all 0.6s ease;
+}
+
+body.single-column .right {
+  display: none;
+}
+
+body.dual-column .left {
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+}
+
+body.dual-column .right {
+  width: 50%;
+  display: block;
+  opacity: 0;
+  animation: fadeInRight 0.5s ease forwards;
+}
+
+@keyframes fadeInRight {
+  0% {
+    transform: translateX(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 255, 255, 0.4);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+	
+	
+	@media (max-width: 900px) {
+  body {
+    flex-direction: column !important;
+    min-height: 100vh;
+    height: auto;
+    overflow: visible;
+  }
+  .left, .right {
+    width: 100% !important;
+    max-width: 100vw !important;
+    padding: 18px 7vw 12px 7vw;
+    min-height: auto;
+    box-sizing: border-box;
+  }
+  .left {
+    order: 1;
+    min-height: 340px;
+    justify-content: flex-start !important;
+    align-items: stretch !important;
+    padding-bottom: 0;
+  }
+  .right {
+    order: 2;
+    border-left: none;
+    border-top: 2px solid rgba(255,255,255,0.2);
+    background-color: rgba(255,255,255,0.13);
+    margin-top: 12px;
+    min-height: 220px;
+    box-shadow: none;
+    padding-top: 8px;
+  }
+  .container {
+    padding: 18px 5vw;
+    min-width: 0;
+    max-width: 99vw;
+    border-radius: 14px;
+  }
+  .right h2 {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100%;
+    font-size: 20px;
+    padding: 6px 0;
+  }
+  .preview-item img,
+  .preview-item embed {
+    width: 100vw;
+    max-width: 99vw;
+    min-width: 0;
+  }
+  .button-group {
+    flex-direction: column;
+    gap: 9px;
+    margin-top: 12px;
+  }
+}
+
+/* Prevent horizontal scroll on small screens */
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+	
+  </style>
 </head>
 
-<body>
-<div class="container">
-    <h2>Upload Your Files</h2>
-    <div id="fileInputs">
-        <!-- Initial input -->
-    </div>
-    <button onclick="addFileInput()">+ Add Another File</button>
-    <button onclick="submitFiles()">Submit</button>
-    <div id="statusMessage" class="message"></div>
+<body class="single-column">
+
+  <div class="left">
+    <div class="container">
+      <h2>Upload Your Files</h2>
+      <div id="fileInputs"></div>
+      <div class="button-group">
+  <button onclick="addFileInput()">+ Add Another File</button>
+  <button onclick="submitFiles()">Submit</button>
 </div>
 
-<script>
+      <div id="statusMessage" class="message"></div>
+    </div>
+  </div>
+
+  <div class="right">
+    <h2>File Previews</h2>
+    <div class="preview-container" id="previewContainer"></div>
+  </div>
+
+  <script>
     let fileCount = 0;
-    const maxFiles = 5;
+    const maxFiles = 3;
+	let lastResponseStatus = null;
 
     function addFileInput() {
-        if (fileCount >= maxFiles) return;
+      if (fileCount >= maxFiles) return;
 
-        const fileInputs = document.getElementById("fileInputs");
-        const div = document.createElement("div");
-        div.className = "file-input";
-        div.innerHTML = `
-            <input type="file" accept="image/*" />
-            <button class="remove-btn" onclick="removeFileInput(this)">&#10006;</button>
-        `;
-        fileInputs.appendChild(div);
-        fileCount++;
+      const fileInputs = document.getElementById("fileInputs");
+      const div = document.createElement("div");
+      div.className = "file-input";
+      const inputId = `fileInput${fileCount}`;
+
+      div.innerHTML = `
+        <input type="file" accept="image/*,.pdf" onchange="previewFile(this)" id="${inputId}" />
+        <button class="remove-btn" onclick="removeFileInput(this, '${inputId}')">&#10006;</button>
+      `;
+      fileInputs.appendChild(div);
+      fileCount++;
     }
 
-    function removeFileInput(button) {
-        const parent = button.parentElement;
-        parent.remove();
-        fileCount--;
+function removeFileInput(button, inputId) {
+  const parent = button.parentElement;
+  parent.remove();
+  fileCount--;
+
+  // Rebuild previews based on current inputs
+  previewFile(); // Call full regeneration
+
+  // Toggle layout if needed
+  const remainingPreviews = document.querySelectorAll(".preview-item").length;
+  if (remainingPreviews === 0) {
+    document.body.classList.remove("dual-column");
+    document.body.classList.add("single-column");
+  }
+}
+
+function startLoadingAnimation() {
+  document.getElementById("loadingOverlay").style.display = "flex";
+}
+
+function stopLoadingAnimation() {
+  document.getElementById("loadingOverlay").style.display = "none";
+}
+
+
+function showModal(message, type = 'success') {
+  lastResponseStatus = type;
+  const modal = document.getElementById("customModal");
+  const content = document.getElementById("modalContent");
+  const messageDiv = document.getElementById("modalMessage");
+
+  messageDiv.innerHTML = message;
+  content.style.color = type === 'error' ? '#c0392b' : '#27ae60';
+  content.style.borderLeft = `6px solid ${type === 'error' ? '#c0392b' : '#27ae60'}`;
+  modal.style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("customModal").style.display = "none";
+  if (lastResponseStatus === 'success') {
+    resetUploadForm();
+  }
+}
+
+function resetUploadForm() {
+  document.getElementById("fileInputs").innerHTML = '';
+  fileCount = 0;
+
+  // Clear preview area
+  document.getElementById("previewContainer").innerHTML = '';
+
+  // Reset layout
+  document.body.classList.remove("dual-column");
+  document.body.classList.add("single-column");
+
+  // Add initial file input back
+  addFileInput();
+}
+
+
+function previewFile() {
+  const previewContainer = document.getElementById("previewContainer");
+  previewContainer.innerHTML = ''; // Clear all previews
+
+  const inputs = document.querySelectorAll('#fileInputs input[type="file"]');
+  let hasFiles = false;
+
+  inputs.forEach((input, index) => {
+    const file = input.files[0];
+    if (file) {
+      hasFiles = true;
+
+      const div = document.createElement("div");
+      div.className = "preview-item";
+      div.setAttribute("data-id", input.id);
+      div.innerHTML = `<div class="preview-number">${index + 1}.</div>`;
+      previewContainer.appendChild(div); // Append in correct order
+
+      if (file.type.startsWith("image/")) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          div.innerHTML += `<img src="${e.target.result}" alt="${file.name}" />`;
+        };
+        reader.readAsDataURL(file);
+		} else if (file.type === "application/pdf") {
+		const url = URL.createObjectURL(file);
+		div.innerHTML += `<embed src="${url}" type="application/pdf" />`;
+		} else {
+		div.innerHTML += `<div style="color: red;">Unsupported file type</div>`;
+		}
     }
+  });
 
-    function submitFiles() {
-        const statusMessage = document.getElementById("statusMessage");
-        const inputs = document.querySelectorAll('#fileInputs input[type="file"]');
-        const selectedFiles = [];
+  // Toggle layout state
+  if (hasFiles) {
+    document.body.classList.remove("single-column");
+    document.body.classList.add("dual-column");
+  } else {
+    document.body.classList.remove("dual-column");
+    document.body.classList.add("single-column");
+  }
+}
 
-        inputs.forEach(input => {
-            if (input.files.length > 0) {
-                selectedFiles.push(input.files[0].name);
-            }
-        });
 
-        if (selectedFiles.length > 0) {
-            statusMessage.textContent = `Uploaded ${selectedFiles.length} file(s): ${selectedFiles.join(", ")}`;
-            statusMessage.className = "message success";
-            console.log("Files uploaded:", selectedFiles);
-        } else {
-            statusMessage.textContent = "Please select at least one file to upload.";
-            statusMessage.className = "message error";
-        }
+
+function submitFiles() {
+  const statusMessage = document.getElementById("statusMessage");
+  const inputs = document.querySelectorAll('#fileInputs input[type="file"]');
+  const formData = new FormData();
+  let atLeastOneFile = false;
+
+  inputs.forEach(input => {
+    for (let i = 0; i < input.files.length; i++) {
+      formData.append("files", input.files[i]);
+      atLeastOneFile = true;
     }
+  });
 
-    // Add one file input on load
+  if (!atLeastOneFile) {
+    statusMessage.textContent = "Please select at least one file.";
+    statusMessage.className = "message error";
+    return;
+  }
+
+  // Show loading overlay
+  startLoadingAnimation();
+
+  fetch("http://localhost:9090/v1.0/validate/paper/enroll", {
+    method: "POST",
+    body: formData
+  })
+    .then(response => {
+      if (!response.ok) throw new Error("Upload failed.");
+      return response.json();
+    })
+    .then(data => {
+      console.log("Response from server:", data);
+      stopLoadingAnimation(); // hide loading
+
+      if (data.status === "success") {
+        showModal("✅ File validated successfully. Temp App ID: " + data.tempAppId, 'success');
+      } else if (data.status !== "success" && data.score < 95) {
+        showModal("❌ Please upload a clear image with all details filled (Score: " + data.score.toFixed(2) + ")", 'error');
+      } else {
+        showModal("⚠️ File validation failed.", 'error');
+      }
+    })
+    .catch(error => {
+      document.getElementById("loadingOverlay").style.display = "none";
+      showModal("❌ Something went wrong during submission.", 'error');
+      console.error("Error:", error);
+    });
+}
+
+	
+	function renumberPreviews() {
+  const numbers = document.querySelectorAll(".preview-number");
+  numbers.forEach((el, index) => {
+    el.textContent = `${index + 1}.`;
+  });
+}
+
     window.onload = addFileInput;
-</script>
+  </script>
+
+<div id="customModal" style="display:none;">
+  <div id="modalContent">
+    <button id="closeModalBtn" onclick="closeModal()">❌</button>
+    <div id="modalMessage"></div>
+  </div>
+</div>
+
+<style>
+#customModal {
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#modalContent {
+  background-color: #fff;
+  color: #333;
+  padding: 30px 40px 20px 40px; /* extra bottom padding */
+  border-radius: 12px;
+  max-width: 420px;
+  font-size: 18px;
+  text-align: center;
+  animation: pop 0.4s ease;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+  position: relative;
+  word-wrap: break-word;
+}
+
+#closeModalBtn {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  font-size: 12px;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+}
+
+#closeModalBtn:hover {
+  color: #e74c3c;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+</style>
+
+<div id="loadingOverlay" style="display:none;">
+  <div class="loadingMessage">
+    <div class="spinner">⏳</div>
+    <div class="loadingText">Submitting your application</div>
+  </div>
+</div>
+
+<style>
+/* Loading Overlay Styling */
+#loadingOverlay {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.4s ease;
+}
+
+.loadingMessage {
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  background-color: #222;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  text-align: center;
+}
+
+.spinner {
+  font-size: 38px;
+  display: inline-block;
+  animation: spin 1.4s linear infinite;
+  margin-bottom: 10px;
+}
+
+.loadingText {
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+</style>
+
 </body>
 </html>
