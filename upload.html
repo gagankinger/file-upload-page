@@ -57,26 +57,32 @@ body {
   width: 100%; 
     }
 
-    .file-input {
-  display: flex;
+.file-input {
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  gap: 12px;
   margin-bottom: 18px;
-  margin-left: 10%;
-  flex-direction: row;
+  width: 100%;
+  margin-left: 0;
 }
 
-    .file-input input[type="file"] {
-      background-color: #fff;
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
-      width: 297px;
-      color: #333;
-      font-size: 15px;
-      cursor: pointer;
-    }
+.file-input input[type="file"] {
+  background-color: #fff;
+  padding: 12px 10px;
+  border-radius: 10px;
+  border: none;
+  min-width: 0;
+  width: 100%;
+  color: #333;
+  font-size: 15px;
+  cursor: pointer;
+  box-sizing: border-box;
+  margin-right: 0;
+}
+
+
+
 
     .file-input input[type="file"]:hover {
       background-color: #f1f9ff;
@@ -309,21 +315,32 @@ html, body {
 }
 
 @media (max-width: 600px) {
+  .container {
+    padding: 10px 6vw;
+    max-width: 99vw;
+  }
   .file-input {
-    margin-left: 1px;
-    gap: 7px;
+    gap: 8px;
+    width: 105%;
+    margin-left: 2vw;
+    grid-template-columns: 1fr auto;
   }
   .file-input input[type="file"] {
-    width: 85vw;         /* Makes input about 75% of screen width */
-    max-width: 265px;    /* Never too large, but enough for label */
-    min-width: 130px;    /* Prevents being too tiny */
+    font-size: 15px;
+    padding: 11px 8px;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
   }
   .remove-btn {
     font-size: 18px;
     margin-left: 0;
-    /* Optional: tweak width or padding if you like */
   }
 }
+
+
+
+
 
 
 	
