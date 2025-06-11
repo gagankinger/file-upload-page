@@ -64,6 +64,7 @@ body {
   gap: 10px;
   margin-bottom: 18px;
   margin-left: 10%;
+  flex-direction: row;
 }
 
     .file-input input[type="file"] {
@@ -309,20 +310,21 @@ html, body {
 
 @media (max-width: 600px) {
   .file-input {
-    flex-direction: column;
-    align-items: stretch;
     margin-left: 0;
-    gap: 8px;
+    gap: 7px;
   }
   .file-input input[type="file"] {
-    width: 80%;
-    max-width: 80%;
+    width: 75vw;         /* Makes input about 75% of screen width */
+    max-width: 200px;    /* Never too large, but enough for label */
+    min-width: 100px;    /* Prevents being too tiny */
   }
-  .button-group {
-    flex-direction: column;
-    gap: 12px;
+  .remove-btn {
+    font-size: 18px;
+    margin-left: 0;
+    /* Optional: tweak width or padding if you like */
   }
 }
+
 
 	
   </style>
